@@ -1,0 +1,38 @@
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import plotly.express as px
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+
+# Load the CSV file into a DataFrame, specifying 'Date' as the index column
+df = pd.read_csv('TSLA.csv', parse_dates=['Date'], index_col='Date')
+
+# Display the first 10 rows and the last rows of the DataFrame
+print("First 10 rows:")
+print(df.head(10))
+print("\nLast 5 rows:")
+print(df.tail())
+
+# Display the shape, information, and basic statistics of the DataFrame
+print("\nDataFrame shape:")
+print(df.shape)
+print("\nDataFrame info:")
+print(df.info())
+print("\nDataFrame statistics:")
+print(df.describe())
+
+# Plot individual price components using Plotly Express
+for col in ['Open', 'Close', 'High', 'Low', 'Adj Close', 'Volume']:
+    fig = px.line(df[col], title=f'{col} Price Of Tesla Stock')
+    fig.show()
+
+# Plot Open and Close prices together
+df_open_close = df[['Open', 'Close']]
+fig = px.line(df_open_close, title='Open And Close Price Of Tesla Stock')
+fig.show()
+
+# Plot High and Low prices together
+df_high_low = df[['High', 'Low']]
+fig = px.line(df_high_low, title='High And Low Price Of Tesla Stock')
+fig.show()
